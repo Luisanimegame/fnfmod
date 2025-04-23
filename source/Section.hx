@@ -10,6 +10,7 @@ typedef SwagSection =
 	var bpm:Float;
 	var changeBPM:Bool;
 	var altAnim:Bool;
+	var camTilt:Bool; // - no chart se voce quer que use movimentaçao ou nao
 }
 
 class Section
@@ -20,6 +21,7 @@ class Section
 	public var gfSection:Bool = false;
 	public var typeOfSection:Int = 0;
 	public var mustHitSection:Bool = true;
+	public var camTilt:Bool = true; // - no chart se voce quer que use movimentaçao ou nao
 
 	/**
 	 *	Copies the first section into the second section!
