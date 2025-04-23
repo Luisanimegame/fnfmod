@@ -283,6 +283,8 @@ class PlayState extends MusicBeatState
 	public static var deathCounter:Int = 0;
 
 	public var defaultCamZoom:Float = 1.05;
+	
+	public static var isFixedAspectRatio:Bool = false; //4:3 lol
 
 	// how big to stretch the pixel art assets
 	public static var daPixelZoom:Float = 6;
@@ -4729,6 +4731,38 @@ class PlayState extends MusicBeatState
 			}
 		}
 	}
+	
+	var umtween:FlxTween;
+	var umtween2:FlxTween;
+
+	function camtiltonHit(minusplus)  {
+		var val:Float = 0;
+
+		switch (minusplus) {
+			case 0:
+				val = tiltStrength;
+			case 1:
+				val = -tiltStrength;
+			case 3:
+				val = 0;
+		}
+		if (!SONG.notes[curSection].camTilt) {
+			if (umtween != null) {
+				umtween.cancel();
+			}
+				umtween = FlxTween.tween(camGame, {angle: val},Conductor.crochet/600, {ease: FlxEase.backOut, onComplete: function (twn:FlxTween) {
+				umtween = null;
+			}});	
+		}
+		else if (SONG.notes[curSection].camTilt) {
+			if (umtween2 != null) {
+				umtween2.cancel();
+			}
+				umtween2 = FlxTween.tween(camGame, {angle: 0},Conductor.crochet/600, {ease: FlxEase.backOut, onComplete: function (twn:FlxTween) {
+				umtween2 = null;
+			}});
+		}
+	}
 
 	public function spawnNoteSplashOnNote(note:Note) {
 		if(ClientPrefs.noteSplashes && note != null) {
@@ -5303,6 +5337,23 @@ class PlayState extends MusicBeatState
 		return null;
 	}
 	#end
+	
+	override function switchTo(state:FlxState){
+		// DO CLEAN-UP HERE!!
+		if(curSong == 'Faker Identity'){
+			FlxG.mouse.unload();
+			FlxG.mouse.visible = true; //true pra deixar mouse invisivel ou false pra o mouse aparecer
+		}
+		
+		if(isFixedAspectRatio){
+			Lib.application.window.resizable = true;
+			FlxG.scaleMode = new RatioScaleMode(false);
+			FlxG.resizeGame(1280, 720);
+			FlxG.resizeWindow(1280, 720);
+		}
+
+		return super.switchTo(state);
+	}
 
 	var curLight:Int = -1;
 	var curLightEvent:Int = -1;
