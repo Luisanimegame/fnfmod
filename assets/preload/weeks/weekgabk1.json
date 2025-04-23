@@ -1,0 +1,22 @@
+{
+	"songs": [
+		["Lapoluz", "gabobrh", [130, 73, 250]],
+		["Faker Identity", "fakerer", [185, 177, 239]]
+	],
+
+	"weekCharacters": [
+		"",
+		"bf",
+		""
+	],
+	"weekBackground": "",
+
+	"storyName": "VsGabo Is Real",
+	"weekBefore": "tutorial",
+	"weekName": "Week Gabo",
+	"difficulties": "Normal",
+	"startUnlocked": true,
+
+	"hideStoryMode": false,
+	"hideFreeplay": false
+}
