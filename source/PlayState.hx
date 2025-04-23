@@ -330,6 +330,17 @@ class PlayState extends MusicBeatState
 	public static var lastCombo:FlxSprite;
 	// stores the last combo score objects in an array
 	public static var lastScore:Array<FlxSprite> = [];
+	
+	// obrigado youtube
+	var cOffsetX:Float = 0;
+	var cOffsetY:Float = 0;
+	var cDOffsetX:Float = 0;
+	var cDOffsetY:Float = 0;
+
+	var negOff:Float = -0.4;
+	var posOff:Float = 0.4;
+
+	var tiltStrength:Float = 0.3;
 
 	override public function create()
 	{
@@ -871,10 +882,30 @@ class PlayState extends MusicBeatState
 		luaDebugGroup.cameras = [camOther];
 		add(luaDebugGroup);
 		#end
+		
+		// use this for 4:3 aspect ratio shit lmao
+		switch (SONG.song.toLowerCase())
+		{
+			case 'Faker Identity': //sua song
+				isFixedAspectRatio = true; 
+
+			default: //nao tira e nem mexe nisso
+				isFixedAspectRatio = false;
+		}
+
+		if (isFixedAspectRatio)
+		{
+			camHUD.x -= 50;
+			camOther.x -= 50;
+			Lib.application.window.resizable = false;
+			FlxG.scaleMode = new StageSizeScaleMode();
+			FlxG.resizeGame(960, 720);
+			FlxG.resizeWindow(960, 720);
+		}
 
 		// "GLOBAL" SCRIPTS
 		#if LUA_ALLOWED
-		var daScripts:Array<String> = ['script', 'script1', 'script2', 'script3', 'script4']; // I don't think I need to explain this 
+		var daScripts:Array<String> = ['bagunca', 'script1', 'script2', 'script3', 'script4']; // I don't think I need to explain this 
 		for (script in daScripts) {
 			var scriptPath:String = Paths.getPreloadPath('scripts/' + script + '.lua');
 			if (OpenFlAssets.exists(scriptPath))
@@ -3234,6 +3265,15 @@ class PlayState extends MusicBeatState
 		setOnLuas('cameraY', camFollowPos.y);
 		setOnLuas('botPlay', cpuControlled);
 		callOnLuas('onUpdatePost', [elapsed]);
+		
+		if (!SONG.notes[curSection].mustHitSection) {
+			camFollowPos.x += cDOffsetX;
+			camFollowPos.y += cDOffsetY;
+		}
+		else {
+			camFollowPos.x += cOffsetX;
+			camFollowPos.y += cOffsetY;	
+		}
 	}
 
 	function openPauseMenu()
@@ -4623,6 +4663,27 @@ class PlayState extends MusicBeatState
 					boyfriend.playAnim(animToPlay + note.animSuffix, true);
 					boyfriend.holdTimer = 0;
 				}
+				
+				if (!note.isSustainNote) {
+					switch (note.noteData) {
+						case 0:
+							cOffsetX = negOff; 
+							cOffsetY = 0; 
+							camtiltonHit(0);
+						case 1:
+							cOffsetX = 0; 
+							cOffsetY = posOff;
+							camtiltonHit(3);
+						case 2:
+							cOffsetY = negOff; 
+							cOffsetX = 0; 
+							camtiltonHit(3);
+						case 3:
+							cOffsetY = 0;
+							cOffsetX = posOff;  
+							camtiltonHit(1);
+					}
+				}
 
 				if(note.noteType == 'Hey!') {
 					if(boyfriend.animOffsets.exists('hey')) {
@@ -5033,12 +5094,6 @@ class PlayState extends MusicBeatState
 			if (generatedMusic && !endingSong && !isCameraOnForcedPos)
 			{
 				moveCameraSection();
-			}
-
-			if (camZooming && FlxG.camera.zoom < 1.35 && ClientPrefs.camZooms)
-			{
-				FlxG.camera.zoom += 0.015 * camZoomingMult;
-				camHUD.zoom += 0.03 * camZoomingMult;
 			}
 
 			if (SONG.notes[curSection].changeBPM)
