@@ -654,6 +654,7 @@ class ChartingState extends MusicBeatState
 
 	var sectionToCopy:Int = 0;
 	var notesCopied:Array<Dynamic>;
+	var check_camtilt:FlxUICheckBox; // - botao de desativar e ativar
 
 	function addSectionUI():Void
 	{
@@ -663,6 +664,12 @@ class ChartingState extends MusicBeatState
 		check_mustHitSection = new FlxUICheckBox(10, 15, null, null, "Must hit section", 100);
 		check_mustHitSection.name = 'check_mustHit';
 		check_mustHitSection.checked = _song.notes[curSec].mustHitSection;
+		
+		// - BAGUI DA CAMERA - - - -
+		check_camtilt = new FlxUICheckBox(check_mustHitSection.x + 120, check_mustHitSection.y, null, null, "Cam Tilt Disable", 100);
+		check_camtilt.name = 'check_camtilt';
+		check_camtilt.checked = _song.notes[curSec].camTilt;
+		// - - - - -
 
 		check_gfSection = new FlxUICheckBox(10, check_mustHitSection.y + 22, null, null, "GF section", 100);
 		check_gfSection.name = 'check_gf';
@@ -911,6 +918,7 @@ class ChartingState extends MusicBeatState
 		tab_group_section.add(copyLastButton);
 		tab_group_section.add(duetButton);
 		tab_group_section.add(mirrorButton);
+		tab_group_section.add(check_camtilt); // - para adicionar no chart editor
 
 		UI_box.addGroup(tab_group_section);
 	}
@@ -1408,6 +1416,9 @@ class ChartingState extends MusicBeatState
 			var label = check.getLabel().text;
 			switch (label)
 			{
+				case 'Cam Tilt Disable': // - O PRINCIPAL
+					_song.notes[curSec].camTilt = check.checked;
+			
 				case 'Must hit section':
 					_song.notes[curSec].mustHitSection = check.checked;
 
@@ -2489,6 +2500,7 @@ class ChartingState extends MusicBeatState
 		check_altAnim.checked = sec.altAnim;
 		check_changeBPM.checked = sec.changeBPM;
 		stepperSectionBPM.value = sec.bpm;
+		check_camtilt.checked = sec.camTilt; // - para chekar se foi sim ou nao
 
 		updateHeads();
 	}
@@ -2751,7 +2763,8 @@ class ChartingState extends MusicBeatState
 			gfSection: false,
 			sectionNotes: [],
 			typeOfSection: 0,
-			altAnim: false
+			altAnim: false,
+			camTilt: true // - i trolled u
 		};
 
 		_song.notes.push(sec);
