@@ -4,6 +4,7 @@ import flixel.graphics.FlxGraphic;
 #if desktop
 import Discord.DiscordClient;
 #end
+import flixel.system.scaleModes.RatioScaleMode;
 import Section.SwagSection;
 import Song.SwagSong;
 import WiggleEffect.WiggleEffectType;
@@ -60,6 +61,7 @@ import StageData;
 import FunkinLua;
 import DialogueBoxPsych;
 import Conductor.Rating;
+import flixel.system.scaleModes.StageSizeScaleMode;
 
 #if !flash 
 import flixel.addons.display.FlxRuntimeShader;
