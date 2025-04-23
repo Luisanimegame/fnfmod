@@ -4583,6 +4583,27 @@ class PlayState extends MusicBeatState
 				char.playAnim(animToPlay, true);
 				char.holdTimer = 0;
 			}
+			
+			if (!note.isSustainNote) {
+				switch (note.noteData) {
+					case 0:
+						cDOffsetX = negOff; 
+						cDOffsetY = 0; 
+						camtiltonHit(0);
+					case 1:
+						cDOffsetX = 0; 
+						cDOffsetY = posOff;
+						camtiltonHit(3); 				
+					case 2:
+						cDOffsetY = negOff; 
+						cDOffsetX = 0; 
+						camtiltonHit(3);
+					case 3:
+						cDOffsetY = 0;
+						cDOffsetX = posOff;  
+						camtiltonHit(1);
+				}
+			}
 		}
 
 		if (SONG.needsVoices)
