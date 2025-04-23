@@ -5038,6 +5038,176 @@ class PlayState extends MusicBeatState
 		if(curStep == lastStepHit) {
 			return;
 		}
+		
+		if (curSong == 'Lapoluz') //espero que isso funcione
+		{
+		
+		// Zoom e Flash
+		if (curStep == 256)
+		{
+		defaultCamZoom = 0.675;
+		}
+		
+		if (curStep == 320)
+		{
+		defaultCamZoom = 0.715;
+		}
+		
+		if (curStep == 352)
+		{
+		defaultCamZoom = 0.915;
+		}
+		
+		if (curStep == 356)
+		{
+		defaultCamZoom = 0.715;
+		}
+		
+		if (curStep == 358)
+		{
+		defaultCamZoom = 0.815;
+		}
+		
+		if (curStep == 362)
+		{
+		defaultCamZoom = 0.715;
+		}
+		
+		if (curStep == 364)
+		{
+		defaultCamZoom = 0.615;
+		}
+		
+		if (curStep == 380)
+		{
+		defaultCamZoom = 0.515;
+		}
+		
+		if (curStep == 382)
+		{
+		defaultCamZoom = 0.615;
+		}
+		
+		if (curStep == 384)
+		{
+		defaultCamZoom = 0.715;
+		}
+		
+		if (curStep == 512)
+		{
+		defaultCamZoom = 1;
+		}
+		
+		if (curStep == 539)
+		{
+		defaultCamZoom = 1.25;
+		}
+		
+		if (curStep == 544)
+		{
+		defaultCamZoom = 1;
+		}
+		
+		if (curStep == 576)
+		{
+		defaultCamZoom = 1.15;
+		}
+		
+		if (curStep == 640)
+		{
+		defaultCamZoom = 1;
+		}
+		
+		if (curStep == 667)
+		{
+		defaultCamZoom = 1.25;
+		}
+		
+		if (curStep == 672)
+		{
+		defaultCamZoom = 1;
+		}
+		
+		if (curStep == 704)
+		{
+		defaultCamZoom = 1.15;
+		}
+		
+		if (curStep == 768)
+		{
+		defaultCamZoom = 1;
+		}
+		
+		if (curStep == 910)
+		{
+		defaultCamZoom = 0.915;
+		}
+		
+		if (curStep == 918)
+		{
+		defaultCamZoom = 0.815;
+		}
+		
+		if (curStep == 960)
+		{
+		defaultCamZoom = 1;
+		}
+		
+		if (curStep == 976)
+		{
+		defaultCamZoom = 0.915;
+		}
+		
+		if (curStep == 1008)
+		{
+		defaultCamZoom = 0.615;
+		}
+		
+		if (curStep == 1016)
+		{
+		defaultCamZoom = 0.515;
+		}
+		
+		if (curStep == 1026)
+		{
+		defaultCamZoom = 0.615;
+		}
+		
+		if (curStep == 1068)
+		{
+		defaultCamZoom = 0.915;
+		}
+		
+		if (curStep == 1090)
+		{
+		defaultCamZoom = 0.815;
+		}
+		
+		if (curStep == 1136)
+		{
+		defaultCamZoom = 0.515;
+		}
+		
+		if (curStep == 1152)
+		{
+		defaultCamZoom = 0.815;
+		}
+		
+		if (curStep == 1280)
+		{
+		defaultCamZoom = 1.15;
+		}
+		
+		if (curStep == 1344)
+		{
+		defaultCamZoom = 1.25;
+		}
+		
+		if (curStep == 1408)
+		{
+		defaultCamZoom = 0.615;
+		}
+		}
 
 		lastStepHit = curStep;
 		setOnLuas('curStep', curStep);
