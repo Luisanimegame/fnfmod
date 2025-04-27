@@ -17,6 +17,7 @@ import flixel.tweens.FlxTween;
 import lime.utils.Assets;
 import flixel.system.FlxSound;
 import openfl.utils.Assets as OpenFlAssets;
+import LeakData;
 import WeekData;
 #if MODS_ALLOWED
 import sys.FileSystem;
@@ -57,7 +58,11 @@ class FreeplayState extends MusicBeatState
 		
 		persistentUpdate = true;
 		PlayState.isStoryMode = false;
+		if(CoolUtil.difficultyString() == 'HARD') {
+		LeakData.reloadWeekFiles(false);
+		else {
 		WeekData.reloadWeekFiles(false);
+		}
 
 		#if desktop
 		// Updating Discord Rich Presence
@@ -67,7 +72,12 @@ class FreeplayState extends MusicBeatState
 		for (i in 0...WeekData.weeksList.length) {
 			if(weekIsLocked(WeekData.weeksList[i])) continue;
 
+			if(CoolUtil.difficultyString() == 'HARD') {
+			var leWeek:LeakData = LeakData.weeksLoaded.get(LeakData.weeksList[i]);
+			else {
 			var leWeek:WeekData = WeekData.weeksLoaded.get(WeekData.weeksList[i]);
+			}
+			
 			var leSongs:Array<String> = [];
 			var leChars:Array<String> = [];
 
@@ -77,7 +87,12 @@ class FreeplayState extends MusicBeatState
 				leChars.push(leWeek.songs[j][1]);
 			}
 
+			if(CoolUtil.difficultyString() == 'HARD') {
+			LeakData.setDirectoryFromWeek(leWeek);
+			else {
 			WeekData.setDirectoryFromWeek(leWeek);
+			}
+			
 			for (song in leWeek.songs)
 			{
 				var colors:Array<Int> = song[2];
@@ -88,7 +103,11 @@ class FreeplayState extends MusicBeatState
 				addSong(song[0], i, song[1], FlxColor.fromRGB(colors[0], colors[1], colors[2]));
 			}
 		}
+		if(CoolUtil.difficultyString() == 'HARD') {
+		LeakData.loadTheFirstEnabledMod();
+		else {
 		WeekData.loadTheFirstEnabledMod();
+		}
 
 		/*		//KIND OF BROKEN NOW AND ALSO PRETTY USELESS//
 
@@ -135,7 +154,12 @@ class FreeplayState extends MusicBeatState
 			// DONT PUT X IN THE FIRST PARAMETER OF new ALPHABET() !!
 			// songText.screenCenter(X);
 		}
+		
+		if(CoolUtil.difficultyString() == 'HARD') {
+		LeakData.setDirectoryFromWeek();
+		else {
 		WeekData.setDirectoryFromWeek();
+		}
 
 		scoreText = new FlxText(FlxG.width * 0.7, 5, 0, "", 32);
 		scoreText.setFormat(Paths.font("vcr.ttf"), 32, FlxColor.WHITE, RIGHT);
@@ -390,7 +414,12 @@ class FreeplayState extends MusicBeatState
 			PlayState.isStoryMode = false;
 			PlayState.storyDifficulty = curDifficulty;
 
+			if(CoolUtil.difficultyString() == 'HARD') {
+			trace('CURRENT WEEK: ' + LeakData.getWeekFileName());
+			else {
 			trace('CURRENT WEEK: ' + WeekData.getWeekFileName());
+			}
+			
 			if(colorTween != null) {
 				colorTween.cancel();
 			}
@@ -505,7 +534,11 @@ class FreeplayState extends MusicBeatState
 		PlayState.storyWeek = songs[curSelected].week;
 
 		CoolUtil.difficulties = CoolUtil.defaultDifficulties.copy();
+		if(CoolUtil.difficultyString() == 'HARD') {
+		var diffStr:String = LeakData.getCurrentWeek().difficulties;
+		else {
 		var diffStr:String = WeekData.getCurrentWeek().difficulties;
+		}
 		if(diffStr != null) diffStr = diffStr.trim(); //Fuck you HTML5
 
 		if(diffStr != null && diffStr.length > 0)
