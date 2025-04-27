@@ -72,11 +72,13 @@ class FreeplayState extends MusicBeatState
 		if(CoolUtil.difficultyString() == 'HARD') 
 		for (i in 0...LeakData.weeksList.length) {
 			if(weekIsLocked(LeakData.weeksList[i])) continue;
+		}
 
 			var leWeek:LeakData = LeakData.weeksLoaded.get(LeakData.weeksList[i]);
 		else
 		for (i in 0...WeekData.weeksList.length) {
 			if(weekIsLocked(WeekData.weeksList[i])) continue;
+		}
 
 			var leWeek:WeekData = WeekData.weeksLoaded.get(WeekData.weeksList[i]);
 			
