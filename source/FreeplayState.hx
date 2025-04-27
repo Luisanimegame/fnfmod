@@ -17,8 +17,8 @@ import flixel.tweens.FlxTween;
 import lime.utils.Assets;
 import flixel.system.FlxSound;
 import openfl.utils.Assets as OpenFlAssets;
-import LeakData;
 import WeekData;
+import LeakData; // Ensure this is the correct module that defines the type
 #if MODS_ALLOWED
 import sys.FileSystem;
 #end
@@ -533,10 +533,12 @@ class FreeplayState extends MusicBeatState
 
 		CoolUtil.difficulties = CoolUtil.defaultDifficulties.copy();
 		
-		if(CoolUtil.difficultyString() == 'HARD')
-		var diffStr:String = LeakData.getCurrentWeek().difficulties;
-		else
-		var diffStr:String = WeekData.getCurrentWeek().difficulties;
+		// Define diffStr outside the conditional blocks
+var diffStr:String = null;
+if (CoolUtil.difficultyString() == 'HARD')
+    diffStr = LeakData.getCurrentWeek().difficulties;
+else
+    diffStr = WeekData.getCurrentWeek().difficulties;
 		
 		if(diffStr != null) diffStr = diffStr.trim(); //Fuck you HTML5
 
