@@ -80,8 +80,6 @@ class FreeplayState extends MusicBeatState
 			if(weekIsLocked(WeekData.weeksList[i])) continue;
 		}
 
-			var leWeek:WeekData = WeekData.weeksLoaded.get(WeekData.weeksList[i]);
-			
 			var leSongs:Array<String> = [];
 			var leChars:Array<String> = [];
 
