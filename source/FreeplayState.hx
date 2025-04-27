@@ -68,13 +68,16 @@ class FreeplayState extends MusicBeatState
 		// Updating Discord Rich Presence
 		DiscordClient.changePresence("In the Menus", null);
 		#end
+	
+		if(CoolUtil.difficultyString() == 'HARD') 
+		for (i in 0...LeakData.weeksList.length) {
+			if(weekIsLocked(LeakData.weeksList[i])) continue;
 
+			var leWeek:LeakData = LeakData.weeksLoaded.get(LeakData.weeksList[i]);
+		else
 		for (i in 0...WeekData.weeksList.length) {
 			if(weekIsLocked(WeekData.weeksList[i])) continue;
 
-			if(CoolUtil.difficultyString() == 'HARD') 
-			var leWeek:LeakData = LeakData.weeksLoaded.get(LeakData.weeksList[i]);
-			else
 			var leWeek:WeekData = WeekData.weeksLoaded.get(WeekData.weeksList[i]);
 			
 			var leSongs:Array<String> = [];
